@@ -1,19 +1,15 @@
-# Node
+# Node modules
 node_modules/
-npm-debug.log*
-yarn.lock
 
-# Angular
-/dist
-/.angular
-/.vscode
-/.idea
+# Build output
+dist/
+build/
 
-# OS
+# Mac system files
 .DS_Store
 
-# Uploads
-notes-server/uploads/
+# Logs
+*.log
 
-# Env files
-.env
+# Temporary scripts or eval commands files
+scripts/eval-*.sh
