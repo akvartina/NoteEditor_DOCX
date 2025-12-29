@@ -1,0 +1,109 @@
+.editor-wrapper {
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+/* =========================
+   EDITOR CONTAINER
+   ========================= */
+ngx-editor {
+  min-height: 300px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  background: #fff;
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+/* =========================
+   ACTIONS
+   ========================= */
+.actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  background: #2d6cdf;
+  color: #fff;
+
+  &:hover {
+    background: #1f56b3;
+  }
+}
+
+/* =========================
+   WORD → HTML NORMALIZATION
+   ========================= */
+
+/* Paragraph spacing (Word tends to collapse it) */
+ngx-editor p {
+  margin: 0 0 8px;
+}
+
+/* Headings imported from DOCX */
+ngx-editor h1,
+ngx-editor h2,
+ngx-editor h3,
+ngx-editor h4,
+ngx-editor h5,
+ngx-editor h6 {
+  margin: 16px 0 8px;
+  font-weight: 600;
+}
+
+/* Blockquotes / citations */
+ngx-editor blockquote,
+ngx-editor .docx-quote {
+  margin-left: 40px;
+  padding-left: 12px;
+  border-left: 3px solid #ddd;
+  font-style: italic;
+  color: #555;
+}
+
+/* Highlight (from <mark> or inline styles) */
+ngx-editor mark {
+  background-color: #fff3a0;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Lists from Word */
+ngx-editor ul,
+ngx-editor ol {
+  margin-left: 24px;
+  margin-bottom: 8px;
+}
+
+ngx-editor li {
+  margin-bottom: 4px;
+}
+
+/* Indentation from Word (margin-left converted in backend) */
+ngx-editor [style*="margin-left"] {
+  padding-left: 0;
+}
+
+/* Inline citations / superscripts */
+ngx-editor sup {
+  font-size: 0.75em;
+  vertical-align: super;
+  color: #555;
+}
+
+/* Code or monospaced text (Word sometimes exports this) */
+ngx-editor code {
+  background: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.9em;
+}

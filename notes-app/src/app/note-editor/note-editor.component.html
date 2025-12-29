@@ -1,0 +1,10 @@
+<ngx-editor
+  [editor]="editor"
+  [(ngModel)]="htmlContent">
+</ngx-editor>
+
+<div class="controls">
+  <button (click)="exportToDocx()">Export DOCX</button>
+
+  <input type="file" accept=".docx" (change)="importFromDocx($event)" />
+</div>

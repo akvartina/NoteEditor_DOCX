@@ -1,0 +1,19 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn.lock
+
+# Angular
+/dist
+/.angular
+/.vscode
+/.idea
+
+# OS
+.DS_Store
+
+# Uploads
+notes-server/uploads/
+
+# Env files
+.env

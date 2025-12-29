@@ -1,0 +1,15 @@
+<h2>My Note Editor</h2>
+
+<ngx-editor-menu [editor]="editor"></ngx-editor-menu>
+
+<ngx-editor [editor]="editor" [(ngModel)]="content"></ngx-editor>
+<ngx-editor [(ngModel)]="content"></ngx-editor>
+
+<div style="margin-top: 10px;">
+  <button (click)="saveNote()">Save Note</button>
+  <button (click)="loadNote()">Load Note</button>
+  <button (click)="exportContent()">Export Note</button>
+</div>
+
+<h3>Editor Content (JSON)</h3>
+<pre>{{ content | json }}</pre>

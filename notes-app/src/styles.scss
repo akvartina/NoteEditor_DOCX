@@ -1,0 +1,15 @@
+/* note-editor.component.css */
+ngx-editor {
+  min-height: 200px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+ngx-editor-menu {
+  margin-bottom: 5px;
+}
+
+button {
+  cursor: pointer;
+}
