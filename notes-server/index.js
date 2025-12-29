@@ -1,21 +1,10 @@
-//MAMMOTH STYLE-MAP
-const STYLE_MAP = [
-    "p[style-name='Heading 1'] => h1:fresh",
-    "p[style-name='Heading 2'] => h2:fresh",
-    "p[style-name='Heading 3'] => h3:fresh",
-    "p[style-name='Quote'] => blockquote:fresh",
-    "p[style-name='Bibliography'] => p.bibliography",
-    "r[style-name='Emphasis'] => em",
-    "r[style-name='Strong'] => strong",
-    "r[style-name='Citation'] => span.citation"
-];
-
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const htmlToDocx = require('html-to-docx');
-const mammoth = require('mammoth');
 const fs = require('fs');
+const { execFile } = require('child_process');
+const path = require('path');
 
 const upload = multer({ dest: 'uploads/' });
 const app = express();
@@ -26,19 +15,7 @@ app.use(express.json({ limit: '10mb' }));
 // Post-processing HTML to handle highlights, indentation
 function postProcessHtml(html) {
     return html
-        // Convert Word highlights to <mark>
-        .replace(
-            /<span style="background-color:\s*(#[0-9a-fA-F]{3,6}|[^;]+);?">/g,
-            '<mark style="background-color:$1">'
-        )
-
-        // Convert indentation (pt → px)
-        .replace(
-            /margin-left:\s*([0-9.]+)pt/g,
-            (_, pt) => `margin-left:${pt * 1.333}px`
-        )
-        // Preserve empty paragraphs
-        .replace(/<p>\s*<\/p>/g, '<p>&nbsp;</p>');
+        .replace(/<p class="Quote">/g, '<blockquote>')
 }
 
 // ================================
@@ -73,33 +50,39 @@ app.post('/import-docx', upload.single('file'), async (req, res) => {
 }); */
 
 app.post('/import-docx', upload.single('file'), async (req, res) => {
+    const inputPath = req.file.path;
+    const outputPath = inputPath + '.html';
+
     try {
-        const result = await mammoth.convertToHtml(
-            { path: req.file.path },
-            {
-                styleMap: STYLE_MAP,
-                includeDefaultStyleMap: true,
-                convertImage: mammoth.images.inline(function (image) {
-                    return image.read("base64").then(function (imageBuffer) {
-                        return {
-                            src: "data:" + image.contentType + ";base64," + imageBuffer
-                        };
-                    });
-                })
-            }
-        );
-
-        fs.unlinkSync(req.file.path);
-
-        const html = postProcessHtml(result.value);
-
-        res.json({
-            html,
-            messages: result.messages
+        await new Promise((resolve, reject) => {
+            execFile(
+                'pandoc',
+                [
+                    inputPath,
+                    '-f', 'docx',
+                    '-t', 'html',
+                    '--standalone',
+                    '--wrap=none',
+                    '--lua-filter=' + __dirname + '/pandoc-filters/highlight.lua',
+                    '-o', outputPath
+                ],
+                (error) => {
+                    if (error) reject(error);
+                    else resolve();
+                }
+            );
         });
+
+        const rawHtml = fs.readFileSync(outputPath, 'utf8');
+        const html = postProcessHtml(rawHtml);
+
+        fs.unlinkSync(inputPath);
+        fs.unlinkSync(outputPath);
+
+        res.json({ html });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'DOCX import failed' });
+        res.status(500).json({ error: 'DOCX import failed (Pandoc)' });
     }
 });
 
