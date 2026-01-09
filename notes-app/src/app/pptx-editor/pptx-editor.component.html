@@ -1,0 +1,33 @@
+<div class="pptx-editor">
+  <h2>PPTX</h2>
+
+  <input type="file" accept=".pptx" (change)="onFileSelected($event)" />
+
+  <div *ngIf="loading" class="hint">Loading…</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="toolbar" *ngIf="slides.length > 0">
+    <button (click)="export()">Export PPTX</button>
+    <button (click)="addSlide()">+ Slide</button>
+  </div>
+
+  <div class="slides" *ngIf="slides.length > 0">
+    <div class="slide-card" *ngFor="let slide of slides; let i = index">
+      <div class="slide-header">
+        <div class="title">Slide {{ slide.index || (i + 1) }}</div>
+        <button class="danger" (click)="deleteSlide(i)">Delete</button>
+      </div>
+
+      <textarea
+        [value]="slide.text"
+        (input)="updateSlideText(i, $any($event.target).value)"
+        rows="8"
+        placeholder="Type slide text here…"
+      ></textarea>
+
+      <div class="hint">
+        Tip: use line breaks. (This MVP exports text-only slides.)
+      </div>
+    </div>
+  </div>
+</div>

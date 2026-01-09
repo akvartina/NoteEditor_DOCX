@@ -7,12 +7,14 @@ import { NgxEditorModule } from 'ngx-editor';
 import { AppComponent } from './app.component';
 import { NoteEditorComponent } from './note-editor/note-editor.component';
 import { XlsxEditorComponent } from './xlsx-editor/xlsx-editor.component';
+import { PptxEditorComponent } from './pptx-editor/pptx-editor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NoteEditorComponent,
-    XlsxEditorComponent
+    XlsxEditorComponent,
+    PptxEditorComponent
   ],
   imports: [
     BrowserModule,

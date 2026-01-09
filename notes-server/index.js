@@ -3,6 +3,7 @@ const cors = require('cors');
 const multer = require('multer');
 const htmlToDocx = require('html-to-docx');
 const XLSX = require('xlsx');
+const PptxGenJS = require('pptxgenjs');
 const fs = require('fs');
 const { execFile } = require('child_process');
 const path = require('path');
@@ -40,7 +41,7 @@ app.post('/export-docx', async (req, res) => {
 });
 
 // ================================
-// Import DOCX: merge Mammoth + docx-preview
+// Import DOCX
 // ================================
 
 /* //first basic draft
@@ -166,6 +167,92 @@ app.post('/import-xlsx', upload.single('file'), async (req, res) => {
         res.status(500).json({
             ok: false,
             error: 'XLSX import failed (Ruby parse_xlsx.rb)',
+            details: err.message,
+            stderr,
+        });
+    } finally {
+        try { fs.unlinkSync(inputPath); } catch {}
+    }
+});
+
+// ================================
+// Export PPTX
+// ================================
+app.post('/export-pptx', (req, res) => {
+    try {
+        const { slides } = req.body || {};
+        if (!Array.isArray(slides) || slides.length === 0) {
+            return res.status(400).json({ ok: false, error: 'Missing slides[]' });
+        }
+
+        const pptx = new PptxGenJS();
+        pptx.layout = 'LAYOUT_WIDE'; // 16:9
+
+        for (const s of slides) {
+            const slide = pptx.addSlide();
+            const text = (s && typeof s.text === 'string') ? s.text : '';
+
+            // Basic text box (you can tweak later)
+            slide.addText(text, {
+                x: 0.7,
+                y: 0.7,
+                w: 12.0,
+                h: 6.0,
+                fontSize: 18,
+                color: '363636',
+                valign: 'top'
+            });
+        }
+
+        pptx.write('nodebuffer').then((buf) => {
+            res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+            res.setHeader('Content-Disposition', 'attachment; filename="export.pptx"');
+            res.send(buf);
+        }).catch((e) => {
+            console.error(e);
+            res.status(500).json({ ok: false, error: 'PPTX export failed', details: e.message });
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ ok: false, error: 'PPTX export failed', details: err.message });
+    }
+});
+
+
+// ================================
+// Import PPTX
+// ================================
+app.post('/import-pptx', upload.single('file'), async (req, res) => {
+    const inputPath = req.file.path;
+    const scriptPath = path.join(__dirname, 'ruby', 'parse_pptx.rb');
+    let stderr = '';
+
+    try {
+        const parsed = await new Promise((resolve, reject) => {
+            execFile(
+                'ruby',
+                [scriptPath, inputPath],
+                { timeout: 20000, maxBuffer: 50 * 1024 * 1024 },
+                (err, stdout, errOut) => {
+                    stderr = errOut || '';
+                    if (err) return reject(err);
+                    try {
+                        resolve(JSON.parse(stdout));
+                    } catch {
+                        reject(new Error(`Ruby returned non-JSON.\nSTDERR=${stderr}`));
+                    }
+                }
+            );
+        });
+
+        if (!parsed.ok) throw new Error(parsed.error || 'Unknown PPTX parse error');
+
+        res.json(parsed); // { ok: true, slides: [{index, text}, ...] }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            ok: false,
+            error: 'PPTX import failed (Ruby parse_pptx.rb)',
             details: err.message,
             stderr,
         });
