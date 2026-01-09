@@ -1,0 +1,8 @@
+.xlsx-editor { padding: 12px; }
+.error { color: #b00020; margin-top: 8px; }
+.toolbar, .tabs { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+.tabs button.active { font-weight: 700; }
+.grid { margin-top: 12px; overflow: auto; max-height: 70vh; border: 1px solid #ddd; }
+table { border-collapse: collapse; }
+td { border: 1px solid #eee; padding: 0; }
+input { border: 0; padding: 6px; min-width: 120px; outline: none; }

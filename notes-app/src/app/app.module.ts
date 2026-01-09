@@ -6,11 +6,13 @@ import { NgxEditorModule } from 'ngx-editor';
 
 import { AppComponent } from './app.component';
 import { NoteEditorComponent } from './note-editor/note-editor.component';
+import { XlsxEditorComponent } from './xlsx-editor/xlsx-editor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NoteEditorComponent
+    NoteEditorComponent,
+    XlsxEditorComponent
   ],
   imports: [
     BrowserModule,

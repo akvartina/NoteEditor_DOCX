@@ -1,0 +1,39 @@
+<div class="xlsx-editor">
+  <h2>XLSX</h2>
+
+  <input type="file" accept=".xlsx" (change)="onFileSelected($event)" />
+
+  <div *ngIf="loading">Loading…</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="sheets.length > 0" class="toolbar">
+    <button (click)="export()">Export XLSX</button>
+    <button (click)="addRow()">+ Row</button>
+    <button (click)="addCol()">+ Col</button>
+  </div>
+
+  <div *ngIf="sheets.length > 1" class="tabs">
+    <button
+      *ngFor="let s of sheets; let i = index"
+      (click)="setActiveSheet(i)"
+      [class.active]="i === activeSheetIndex"
+    >
+      {{ s.name }}
+    </button>
+  </div>
+
+  <div *ngIf="activeSheet as sheet" class="grid">
+    <table>
+      <tbody>
+      <tr *ngFor="let row of cells; let r = index">
+        <td *ngFor="let cell of row; let c = index">
+          <input
+            [value]="cell"
+            (input)="updateCell(r, c, $any($event.target).value)"
+          />
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
