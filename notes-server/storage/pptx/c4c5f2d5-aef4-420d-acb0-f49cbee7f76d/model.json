@@ -1,0 +1,415 @@
+{
+  "ok": true,
+  "slides": [
+    {
+      "index": 1,
+      "objects": [
+        {
+          "id": "sp1",
+          "type": "text",
+          "x": 0.3408880139982502,
+          "y": 0.8142771216097988,
+          "w": 9.318241469816273,
+          "h": 2.244750656167979,
+          "z": 1,
+          "text": "Finding Landmarks: Overview"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "objects": [
+        {
+          "id": "sp1",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 0.4866852580927384,
+          "w": 9.318241469816273,
+          "h": 0.6263123359580053,
+          "z": 1,
+          "text": "Pre-Processing: Gaze Analysis"
+        },
+        {
+          "id": "sp2",
+          "type": "text",
+          "x": 5.737696850393701,
+          "y": 1.2603619860017499,
+          "w": 3.9215879265091864,
+          "h": 3.736220472440945,
+          "z": 2,
+          "text": "Interpolation of missing data\nConsider only gaze fixations\n8 consecutive data points (~266 ms)\nlarger gaps considered to be missing data"
+        },
+        {
+          "id": "pic3",
+          "type": "image",
+          "x": 0.3408792650918635,
+          "y": 1.2807852143482066,
+          "w": 5.404363517060368,
+          "h": 3.6953674540682413,
+          "z": 3,
+          "src": "/pptx-assets/c4c5f2d5-aef4-420d-acb0-f49cbee7f76d/media/image6.png"
+        },
+        {
+          "id": "sp4",
+          "type": "text",
+          "x": 0.3731955380577428,
+          "y": 4.9965824584426946,
+          "w": 5.364501312335958,
+          "h": 0.4730971128608924,
+          "z": 4,
+          "text": "Fig.1. Gazes analysis."
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "objects": [
+        {
+          "id": "sp1",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 0.4866852580927384,
+          "w": 9.318241469816273,
+          "h": 0.6263123359580053,
+          "z": 1,
+          "text": "Graph Creation"
+        },
+        {
+          "id": "sp2",
+          "type": "text",
+          "x": 5.737696850393701,
+          "y": 1.2603619860017499,
+          "w": 3.9215879265091864,
+          "h": 3.736220472440945,
+          "z": 2,
+          "text": "Based on participants’ gaze fixations on the regions of interest (ROI)\nfixations on regions of no-house (NH) or “sky” is not considered\nThe graph plots the nodes (house fixation points) and edges (the subsequent gaze succade to another ROI)\nundirected and unweighted, i.e. edges show no direction and no frequency of occurence"
+        },
+        {
+          "id": "pic3",
+          "type": "image",
+          "x": 0.16666666666666666,
+          "y": 1.2796642607174102,
+          "w": 5.404362423447069,
+          "h": 3.7505194663167103,
+          "z": 3,
+          "src": "/pptx-assets/c4c5f2d5-aef4-420d-acb0-f49cbee7f76d/media/image8.png"
+        },
+        {
+          "id": "sp4",
+          "type": "text",
+          "x": 0.3731955380577428,
+          "y": 4.9965824584426946,
+          "w": 5.364501312335958,
+          "h": 0.4730971128608924,
+          "z": 4,
+          "text": "Fig.2. Graph Creation."
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "objects": [
+        {
+          "id": "sp1",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 0.4866852580927384,
+          "w": 9.318241469816273,
+          "h": 0.6263123359580053,
+          "z": 1,
+          "text": "Graph Partitioning"
+        },
+        {
+          "id": "sp2",
+          "type": "text",
+          "x": 4.234224628171479,
+          "y": 1.2603619860017499,
+          "w": 5.425196850393701,
+          "h": 3.736220472440945,
+          "z": 2,
+          "text": "Can the graph-map be cut into two or more mutually independent graphs?\nFocus on: the number of edges between nodes.\nwithin-cluster and between-cluster connections\nThe spectral graph analysis"
+        },
+        {
+          "id": "pic3",
+          "type": "image",
+          "x": 0.3408792650918635,
+          "y": 1.2911887576552932,
+          "w": 3.1836450131233596,
+          "h": 3.6745669291338583,
+          "z": 3,
+          "src": "/pptx-assets/c4c5f2d5-aef4-420d-acb0-f49cbee7f76d/media/image7.png"
+        },
+        {
+          "id": "sp4",
+          "type": "text",
+          "x": 0.3731955380577428,
+          "y": 4.9965824584426946,
+          "w": 5.364501312335958,
+          "h": 0.4730971128608924,
+          "z": 4,
+          "text": "Fig.3. Graph partitioning. Potential clusters of nodes on the map."
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "objects": [
+        {
+          "id": "sp1",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 0.4866852580927384,
+          "w": 9.318241469816273,
+          "h": 0.6263123359580053,
+          "z": 1,
+          "text": "Graph Partitioning"
+        },
+        {
+          "id": "sp2",
+          "type": "text",
+          "x": 3.1306321084864392,
+          "y": 1.2603619860017499,
+          "w": 6.528543307086614,
+          "h": 3.736220472440945,
+          "z": 2,
+          "text": "The spectral graph analysis\nThe adjacency matrix - a binary square matrix with each entry indicating whether the edge connects two nodes.\nThe degree matrix - a square matrix containing a degree of each node (number of connections) on its diagonal and 0 otherwise.\nLaplacian matrix = the adjacency matrix - the degree matrix\nSmallest eigenvalue = 0 → take 2nd smallest eigenvalue\nthe larger the value, the higher the overall connectivity of the network is.\nFiedler vector - eigenvector of 2nd smallest eigenvector; the further the value from 0, the higher the connectivity of the particular node within its cluster."
+        },
+        {
+          "id": "pic3",
+          "type": "image",
+          "x": 0.3408792650918635,
+          "y": 1.2105883639545056,
+          "w": 2.244832677165354,
+          "h": 3.6405839895013123,
+          "z": 3,
+          "src": "/pptx-assets/c4c5f2d5-aef4-420d-acb0-f49cbee7f76d/media/image7.png"
+        },
+        {
+          "id": "sp4",
+          "type": "text",
+          "x": 0.453494094488189,
+          "y": 4.851159230096238,
+          "w": 9.318241469816273,
+          "h": 0.6263123359580053,
+          "z": 4,
+          "text": "Fig.4. The spectral graph analysis. (a) The sparsity pattern of the graph’s adjacency matrix sorted by the entries in second smallest eigenvector. (c) Many entries of the Fiedler vector are around 0, indicating the connection of these nodes to the nodes from another cluster, i.e. the absence of separate clusters."
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "objects": [
+        {
+          "id": "sp1",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 0.4866852580927384,
+          "w": 9.318241469816273,
+          "h": 0.6263123359580053,
+          "z": 1,
+          "text": "Graph Partitioning: Investigate quality of the partitioning"
+        },
+        {
+          "id": "sp2",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 1.2603619860017499,
+          "w": 9.318241469816273,
+          "h": 3.736220472440945,
+          "z": 2,
+          "text": "Consider the intra-cluster density and the inter-cluster density\nDensity - the ratio of instantiated edges to the number of possible edges.\n→  on average, each participant has ~883 edges per graph; mean density = 0.041 ± 0.006; 4.1% of all possible edges instantiated\n→ dividing the graph in two parts, cuts at least 9,3% of the edges\n→ after partitioning, the mean intra-cluster density = 0.079 ± 0.012;\nthe mean inter-cluster density = 0.0083 ± 0.0020\n→ the graph can not be easily partitioned"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "objects": [
+        {
+          "id": "sp1",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 0.4866852580927384,
+          "w": 9.318241469816273,
+          "h": 0.6263123359580053,
+          "z": 1,
+          "text": "Node Degree Centrality"
+        },
+        {
+          "id": "sp2",
+          "type": "text",
+          "x": 5.4729604111986,
+          "y": 1.2603619860017499,
+          "w": 4.186351706036746,
+          "h": 3.736220472440945,
+          "z": 2,
+          "text": "The number of edges connecting a node\nA few houses reach rather high values (up to 33).\nCalculate the mean node degree iterated over all participants, all houses, and both.\nCorrelation Coefficient - how consistent the participants in their gazes between each other in relation to the mean node degree.\nMean = 0.7; STD = 0.06"
+        },
+        {
+          "id": "pic3",
+          "type": "image",
+          "x": 0.16666666666666666,
+          "y": 1.8427384076990376,
+          "w": 5.00451334208224,
+          "h": 2.1624442257217846,
+          "z": 3,
+          "src": "/pptx-assets/c4c5f2d5-aef4-420d-acb0-f49cbee7f76d/media/image4.png"
+        },
+        {
+          "id": "sp4",
+          "type": "text",
+          "x": 0.3731955380577428,
+          "y": 4.9965824584426946,
+          "w": 5.364501312335958,
+          "h": 0.4730971128608924,
+          "z": 4,
+          "text": "Fig.5. Node degree centrality."
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "objects": [
+        {
+          "id": "sp1",
+          "type": "text",
+          "x": 3.5135061242344707,
+          "y": 1.2603619860017499,
+          "w": 6.145341207349081,
+          "h": 3.736220472440945,
+          "z": 1,
+          "text": "Characterizes hierarchical configurations within networks.\nShows the tendency of the frequency of nodes of certain degree over increasing degree.\nindividual degree values are plotted against their frequency of appearance on a double logarithmic plot\nthe data points above the median of the degree distribution are linearly fitted\nStrong hierarchical configurations with many low degree nodes and few high degree nodes have a slope of below -2 or above 2.\n→ Slope smaller than -2.00; Mean = 2.92; STD = 0.34\n→ “the hierarchy index reveals a clear hierarchical structure of the gaze graphs and emphasizes the importance of the few exceptionally high node degree centrality houses”"
+        },
+        {
+          "id": "sp2",
+          "type": "text",
+          "x": 0.5210520559930009,
+          "y": 5.000191382327209,
+          "w": 5.364501312335958,
+          "h": 0.4730971128608924,
+          "z": 2,
+          "text": "Fig.6. The Hierarchy Index."
+        },
+        {
+          "id": "pic3",
+          "type": "image",
+          "x": 0.5210520559930009,
+          "y": 1.2788713910761156,
+          "w": 2.2029866579177604,
+          "h": 1.713419728783902,
+          "z": 3,
+          "src": "/pptx-assets/c4c5f2d5-aef4-420d-acb0-f49cbee7f76d/media/image1.png"
+        },
+        {
+          "id": "pic4",
+          "type": "image",
+          "x": 0.6798884514435696,
+          "y": 3.161777121609799,
+          "w": 2.2029866579177604,
+          "h": 1.668931539807524,
+          "z": 4,
+          "src": "/pptx-assets/c4c5f2d5-aef4-420d-acb0-f49cbee7f76d/media/image1.png"
+        },
+        {
+          "id": "sp5",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 0.4866852580927384,
+          "w": 9.318241469816273,
+          "h": 0.6263123359580053,
+          "z": 5,
+          "text": "Hierarchy Index"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "objects": [
+        {
+          "id": "sp1",
+          "type": "text",
+          "x": 4.819827209098863,
+          "y": 1.2603619860017499,
+          "w": 4.838910761154856,
+          "h": 3.736220472440945,
+          "z": 1,
+          "text": "The mean ND distribution over all participants to identify the high ND houses → plotting the mean node degree of houses averaged across participants\nMean ND across all houses and all participants = 8.3; STD = 3.98\nThreshold to identify high node degree houses: 2-sigma distance → 16.25\n→ a set of 10 houses with the ND centrality values exceeding the threshold."
+        },
+        {
+          "id": "sp2",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 4.523485345581802,
+          "w": 4.171916010498688,
+          "h": 0.6263123359580053,
+          "z": 2,
+          "text": "Fig.7. The mean ND distribution across all participants with mean,1-sigma- and 2-sigma thresholds."
+        },
+        {
+          "id": "sp3",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 0.4866852580927384,
+          "w": 9.318241469816273,
+          "h": 0.6263123359580053,
+          "z": 3,
+          "text": "Threshold for gaze-graph-defined landmarks"
+        },
+        {
+          "id": "pic4",
+          "type": "image",
+          "x": 0.189167760279965,
+          "y": 1.7510936132983377,
+          "w": 4.323545494313211,
+          "h": 2.393099300087489,
+          "z": 4,
+          "src": "/pptx-assets/c4c5f2d5-aef4-420d-acb0-f49cbee7f76d/media/image3.png"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "objects": [
+        {
+          "id": "sp1",
+          "type": "text",
+          "x": 0.3408792650918635,
+          "y": 0.4866852580927384,
+          "w": 9.318241469816273,
+          "h": 0.6263123359580053,
+          "z": 1,
+          "text": "The Rich Club Coefficient"
+        },
+        {
+          "id": "sp2",
+          "type": "text",
+          "x": 4.68468394575678,
+          "y": 1.2603619860017499,
+          "w": 4.974409448818897,
+          "h": 3.736220472440945,
+          "z": 2,
+          "text": "Are the high node degree nodes preferentially connected and form a network?\n“The rich club coefficient is based on the relation of edges in the graph in comparison to the number of possible edges that could be instantiated”.\nhow many edges of nodes with a ND of at least 1 (all edges of the graph)\ndivided by the max possible number of edges\napply the baseline - random graph that has the same degree distribution as the graph of interest\nA value of 1.0 - no bias in connectivity\nHigher values indicate a preferential connectivity within the considered set of nodes."
+        },
+        {
+          "id": "pic3",
+          "type": "image",
+          "x": 0.16666666666666666,
+          "y": 2.1355260279965003,
+          "w": 4.351350612423447,
+          "h": 2.1994958442694665,
+          "z": 3,
+          "src": "/pptx-assets/c4c5f2d5-aef4-420d-acb0-f49cbee7f76d/media/image2.png"
+        },
+        {
+          "id": "sp4",
+          "type": "text",
+          "x": 0.5210520559930009,
+          "y": 5.000191382327209,
+          "w": 5.364501312335958,
+          "h": 0.4730971128608924,
+          "z": 4,
+          "text": "Fig.8. The Rich Club Coefficient."
+        }
+      ]
+    }
+  ]
+}

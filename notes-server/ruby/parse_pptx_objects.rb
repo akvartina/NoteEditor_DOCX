@@ -54,20 +54,42 @@ def slide_order(zip)
   end.compact
 end
 
-def xfrm_in(pic_or_sp, ns)
-  off = pic_or_sp.at_xpath(".//a:xfrm/a:off", ns)
-  ext = pic_or_sp.at_xpath(".//a:xfrm/a:ext", ns)
-  return [0,0,0,0] unless off && ext
+def xfrm_in(node, ns)
+  # for shapes/pics it's often a:xfrm; for graphicFrame it's p:xfrm
+  off = node.at_xpath(".//a:xfrm/a:off", ns) || node.at_xpath(".//p:xfrm/a:off", ns)
+  ext = node.at_xpath(".//a:xfrm/a:ext", ns) || node.at_xpath(".//p:xfrm/a:ext", ns)
+  return [0, 0, 0, 0] unless off && ext
+
   [emu_to_in(off["x"]), emu_to_in(off["y"]), emu_to_in(ext["cx"]), emu_to_in(ext["cy"])]
 end
 
-def extract_text(sp, ns)
-  # join paragraphs with newline
-  ps = sp.xpath(".//a:txBody/a:p", ns)
-  lines = ps.map do |p|
-    p.xpath(".//a:t", ns).map(&:text).join.strip
+def extract_text_from_sp(sp, ns)
+  # PPTX text body is usually in p:txBody (NOT a:txBody)
+  paras = sp.xpath(".//p:txBody/a:p", ns)
+
+  lines = paras.map do |p|
+    # Join normal runs + field runs
+    t1 = p.xpath(".//a:t", ns).map(&:text).join
+    t2 = p.xpath(".//a:fld//a:t", ns).map(&:text).join
+    (t1 + t2).strip
   end.reject(&:empty?)
+
   lines.join("\n")
+end
+
+def extract_text_from_graphic_frame(gf, ns)
+  # table text
+  tbl = gf.at_xpath(".//a:tbl", ns)
+  return "" unless tbl
+
+  rows = tbl.xpath(".//a:tr", ns).map do |tr|
+    cells = tr.xpath(".//a:tc", ns).map do |tc|
+      tc.xpath(".//a:t", ns).map(&:text).join.strip
+    end
+    cells.join("\t").strip
+  end
+
+  rows.reject(&:empty?).join("\n")
 end
 
 # argv: pptx_path out_dir
@@ -87,6 +109,11 @@ Zip::File.open(pptx_path) do |zip|
     xml = read_entry(zip, slide_path)
     next nil unless xml
     doc = Nokogiri::XML(xml)
+    
+    # test bug
+    #sp_count = doc.xpath("//p:sp", NS).size
+    #t_count  = doc.xpath("//a:t", NS).size
+    #warn "DEBUG slide #{idx + 1}: p:sp=#{sp_count}, a:t=#{t_count}"
 
     # slide rels path: ppt/slides/_rels/slideN.xml.rels (N based on file name)
     m = /slide(\d+)\.xml/.match(slide_path)
@@ -99,15 +126,21 @@ Zip::File.open(pptx_path) do |zip|
     z = 0
 
     # Iterate spTree children in order -> z-order
-    doc.xpath("//p:cSld/p:spTree/*", NS).each do |node|
+    doc.xpath("//p:cSld/p:spTree//p:sp | //p:cSld/p:spTree//p:pic | //p:cSld/p:spTree//p:graphicFrame", NS).each do |node|
       z += 1
-
+    
       case node.name
-      when "sp" # text shape
-        text = extract_text(node, NS)
+      when "sp"
+        text = extract_text_from_sp(node, NS)
         next if text.strip.empty?
-        x,y,w,h = xfrm_in(node, NS)
+        x, y, w, h = xfrm_in(node, NS)
         objects << { id: "sp#{z}", type: "text", x: x, y: y, w: w, h: h, z: z, text: text }
+    
+      when "graphicFrame"
+        text = extract_text_from_graphic_frame(node, NS)
+        next if text.strip.empty?
+        x, y, w, h = xfrm_in(node, NS)
+        objects << { id: "tbl#{z}", type: "text", x: x, y: y, w: w, h: h, z: z, text: text }
 
       when "pic" # image
         rid = node.at_xpath(".//a:blip", NS)&.[]("r:embed")
