@@ -51,38 +51,50 @@ app.post('/import-docx', upload.single('file'), async (req, res) => {
 
 app.post('/import-docx', upload.single('file'), async (req, res) => {
     const inputPath = req.file.path;
-    const outputPath = inputPath + '.html';
+    const scriptPath = path.join(__dirname, 'ruby', 'parse_docx.rb');
+
+    let stdout = '';
+    let stderr = '';
 
     try {
-        await new Promise((resolve, reject) => {
-            execFile(
-                'pandoc',
-                [
-                    inputPath,
-                    '-f', 'docx',
-                    '-t', 'html',
-                    '--standalone',
-                    '--wrap=none',
-                    '--lua-filter=' + __dirname + '/pandoc-filters/highlight.lua',
-                    '-o', outputPath
-                ],
-                (error) => {
-                    if (error) reject(error);
-                    else resolve();
+        const parsed = await new Promise((resolve, reject) => {
+            const child = execFile(
+                'ruby',
+                [scriptPath, inputPath],
+                { timeout: 15000, maxBuffer: 20 * 1024 * 1024 },
+                (err, out, errOut) => {
+                    stdout = out || '';
+                    stderr = errOut || '';
+
+                    if (err) return reject(err);
+
+                    try {
+                        resolve(JSON.parse(stdout));
+                    } catch (e) {
+                        reject(new Error(`Ruby returned non-JSON.\nSTDOUT=${stdout}\nSTDERR=${stderr}`));
+                    }
                 }
             );
+
+            child.on('error', reject); // e.g. ruby not found
         });
 
-        const rawHtml = fs.readFileSync(outputPath, 'utf8');
-        const html = postProcessHtml(rawHtml);
+        if (!parsed.ok || typeof parsed.html !== 'string') {
+            throw new Error(`Ruby parse failed: ${JSON.stringify(parsed)}`);
+        }
 
-        fs.unlinkSync(inputPath);
-        fs.unlinkSync(outputPath);
+        const html = postProcessHtml(parsed.html);
 
         res.json({ html });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'DOCX import failed (Pandoc)' });
+        res.status(500).json({
+            error: 'DOCX import failed (Ruby parse_docx.rb)',
+            details: err.message,
+            stderr,
+        });
+    } finally {
+        try { fs.unlinkSync(inputPath); } catch {}
     }
 });
 
