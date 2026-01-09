@@ -1,0 +1,143 @@
+{
+  "ok": true,
+  "slides": [
+    {
+      "index": 1,
+      "objects": []
+    },
+    {
+      "index": 2,
+      "objects": [
+        {
+          "id": "pic5",
+          "type": "image",
+          "x": 0.3408792650918635,
+          "y": 1.2807852143482066,
+          "w": 5.404363517060368,
+          "h": 3.6953674540682413,
+          "z": 5,
+          "src": "/pptx-assets/06e2d5e8-4ef7-4a8a-b10d-f4ce4bf98e2c/media/image6.png"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "objects": [
+        {
+          "id": "pic5",
+          "type": "image",
+          "x": 0.16666666666666666,
+          "y": 1.2796642607174102,
+          "w": 5.404362423447069,
+          "h": 3.7505194663167103,
+          "z": 5,
+          "src": "/pptx-assets/06e2d5e8-4ef7-4a8a-b10d-f4ce4bf98e2c/media/image8.png"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "objects": [
+        {
+          "id": "pic5",
+          "type": "image",
+          "x": 0.3408792650918635,
+          "y": 1.2911887576552932,
+          "w": 3.1836450131233596,
+          "h": 3.6745669291338583,
+          "z": 5,
+          "src": "/pptx-assets/06e2d5e8-4ef7-4a8a-b10d-f4ce4bf98e2c/media/image7.png"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "objects": [
+        {
+          "id": "pic5",
+          "type": "image",
+          "x": 0.3408792650918635,
+          "y": 1.2105883639545056,
+          "w": 2.244832677165354,
+          "h": 3.6405839895013123,
+          "z": 5,
+          "src": "/pptx-assets/06e2d5e8-4ef7-4a8a-b10d-f4ce4bf98e2c/media/image7.png"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "objects": []
+    },
+    {
+      "index": 7,
+      "objects": [
+        {
+          "id": "pic5",
+          "type": "image",
+          "x": 0.16666666666666666,
+          "y": 1.8427384076990376,
+          "w": 5.00451334208224,
+          "h": 2.1624442257217846,
+          "z": 5,
+          "src": "/pptx-assets/06e2d5e8-4ef7-4a8a-b10d-f4ce4bf98e2c/media/image4.png"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "objects": [
+        {
+          "id": "pic5",
+          "type": "image",
+          "x": 0.5210520559930009,
+          "y": 1.2788713910761156,
+          "w": 2.2029866579177604,
+          "h": 1.713419728783902,
+          "z": 5,
+          "src": "/pptx-assets/06e2d5e8-4ef7-4a8a-b10d-f4ce4bf98e2c/media/image1.png"
+        },
+        {
+          "id": "pic6",
+          "type": "image",
+          "x": 0.6798884514435696,
+          "y": 3.161777121609799,
+          "w": 2.2029866579177604,
+          "h": 1.668931539807524,
+          "z": 6,
+          "src": "/pptx-assets/06e2d5e8-4ef7-4a8a-b10d-f4ce4bf98e2c/media/image1.png"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "objects": [
+        {
+          "id": "pic6",
+          "type": "image",
+          "x": 0.189167760279965,
+          "y": 1.7510936132983377,
+          "w": 4.323545494313211,
+          "h": 2.393099300087489,
+          "z": 6,
+          "src": "/pptx-assets/06e2d5e8-4ef7-4a8a-b10d-f4ce4bf98e2c/media/image3.png"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "objects": [
+        {
+          "id": "pic5",
+          "type": "image",
+          "x": 0.16666666666666666,
+          "y": 2.1355260279965003,
+          "w": 4.351350612423447,
+          "h": 2.1994958442694665,
+          "z": 5,
+          "src": "/pptx-assets/06e2d5e8-4ef7-4a8a-b10d-f4ce4bf98e2c/media/image2.png"
+        }
+      ]
+    }
+  ]
+}

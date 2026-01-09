@@ -1,5 +1,5 @@
 <div class="pptx-editor">
-  <h2>PPTX</h2>
+  <h2>PPTX editor (MVP)</h2>
 
   <input type="file" accept=".pptx" (change)="onFileSelected($event)" />
 
@@ -8,26 +8,22 @@
 
   <div class="toolbar" *ngIf="slides.length > 0">
     <button (click)="export()">Export PPTX</button>
-    <button (click)="addSlide()">+ Slide</button>
   </div>
 
-  <div class="slides" *ngIf="slides.length > 0">
-    <div class="slide-card" *ngFor="let slide of slides; let i = index">
-      <div class="slide-header">
-        <div class="title">Slide {{ slide.index || (i + 1) }}</div>
-        <button class="danger" (click)="deleteSlide(i)">Delete</button>
-      </div>
+  <div class="layout" *ngIf="slides.length > 0">
+    <div class="sidebar">
+      <button
+        *ngFor="let s of slides; let i = index"
+        (click)="setActiveSlide(i)"
+        [class.active]="i === activeSlideIndex"
+      >
+        Slide {{ s.index }}
+      </button>
+    </div>
 
-      <textarea
-        [value]="slide.text"
-        (input)="updateSlideText(i, $any($event.target).value)"
-        rows="8"
-        placeholder="Type slide text here…"
-      ></textarea>
-
-      <div class="hint">
-        Tip: use line breaks. (This MVP exports text-only slides.)
-      </div>
+    <div class="stage-wrap">
+      <div #stageHost class="stage-host"></div>
+      <div class="hint small">Drag objects. Double-click text to edit.</div>
     </div>
   </div>
 </div>
